@@ -99,4 +99,3 @@ This repository is a hands-on **exploration of data structures** through practic
 
 ---
 
-This README provides a **snazzy, clean, and engaging** introduction to your projects! 🚀 Let me know if you want any modifications!
