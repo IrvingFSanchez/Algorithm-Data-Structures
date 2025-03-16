@@ -235,3 +235,8 @@ if __name__ == "__main__":
 # chum = friend in this context it's a 1920s terminology
 # screw loose = something is wrong in this context it's a 1920s terminology
 # dry = empty in this context it's a 1920s terminology
+
+
+'''Out of all of the ADT's none of them had an advantage over the other. They all had their own unique features that made them useful in their own way. But Deque
+does allow for more flexibility in terms of adding and removing elements from the front and back of the list. It also allows for more flexibility in terms of
+iterating through the list and allows me to add more features in the future that would benefit from deque'''
