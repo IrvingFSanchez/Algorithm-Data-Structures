@@ -6,6 +6,40 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
 
 ## 📌 Projects Overview
 
+### 🔗 **Linked List Implementations** (`singlylinked.py`, `doublylinked.py`)
+
+- **Singly Linked List** with O(1) `add_first`/`add_last` operations
+  - Tail pointer optimization for efficient appends
+  - Full suite of operations: insert/delete/search
+- **Doubly Linked List** with bidirectional traversal
+  - O(1) operations at both ends
+  - Real-world applications (browser history, undo systems)
+- Includes:
+  - Big-O complexity analysis
+  - Edge case handling
+  - Interactive test cases
+
+📌 **Concepts applied**: **Pointer Manipulation**, **Time Complexity**, **Bidirectional Traversal**, **Memory Efficiency**
+
+---
+
+## 🚀 Key Features of Linked List Project
+
+| Feature          | Singly-Linked | Doubly-Linked |
+|------------------|---------------|---------------|
+| **Insert at Head** | ✅ O(1)       | ✅ O(1)       |
+| **Insert at Tail** | ✅ O(1)       | ✅ O(1)       |
+| **Delete Middle**  | ⚠️ O(n)      | ⚠️ O(n)      |
+| **Traversal**      | → Only        | ↔ Bidirectional |
+
+**Real-World Use Cases**:
+
+- Music playlists (singly-linked)
+- Browser history (doubly-linked)
+- Undo/redo systems
+
+---
+
 ### 🎥 **Movie Recommendation & Directory Traversal** (`main.py`)
 
 - Implements **recursive directory traversal** to locate and load **movie data** from text files.
@@ -98,4 +132,3 @@ This repository is a hands-on **exploration of data structures** through practic
 🎯 **Built with Python** | 🧠 **By Irving F. Sanchez** | 🏛 **Lewis University, CPSC-34000-002**
 
 ---
-
