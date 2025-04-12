@@ -22,8 +22,7 @@ So with that being said, let us begin.
   - [Traversal Algorithms](#traversal-algorithms)
   - [Tree Construction](#tree-construction)
   - [Visual Representation](#visual-representation)
-    - [Preorder Traversal Flow](#preorder-traversal-flow)
-    - [Breadth-First Traversal Queue](#breadth-first-traversal-queue)
+    - [Preorder Traversal Flow (Root → Children)](#preorder-traversal-flow-root--children)
   - [Usage Example](#usage-example)
 
 ## Class Structure
@@ -116,27 +115,45 @@ def cultivate_sample_tree():
 
 ## Visual Representation
 
-### Preorder Traversal Flow
+### Preorder Traversal Flow (Root → Children)
 
 ```mermaid
 flowchart TD
-    A --> B --> E
-    B --> F
-    A --> C
-    A --> D --> G --> H
-    G --> I
-    G --> J
-```
-
-### Breadth-First Traversal Queue
-
-```text
-Iteration  Queue State           Output
-1         [A]                   A
-2         [B,C,D]               B
-3         [C,D,E,F]             C
-4         [D,E,F]               D
-...       ...                   ...
+    subgraph Preorder
+        direction TB
+        A1[A] --> B1[B] --> E1[E]
+        B1 --> F1[F]
+        A1 --> C1[C]
+        A1 --> D1[D] --> G1[G] --> H1[H]
+        G1 --> I1[I]
+        G1 --> J1[J]
+    end
+    
+    subgraph Postorder
+        direction BT
+        E2[E] --> B2[B]
+        F2[F] --> B2
+        B2 --> A2[A]
+        C2[C] --> A2
+        H2[H] --> G2[G]
+        I2[I] --> G2
+        J2[J] --> G2
+        G2 --> D2[D]
+        D2 --> A2
+    end
+    
+    subgraph Breadth-First
+        direction TB
+        A3[A] --> B3[B]
+        A3 --> C3[C]
+        A3 --> D3[D]
+        B3 --> E3[E]
+        B3 --> F3[F]
+        D3 --> G3[G]
+        G3 --> H3[H]
+        G3 --> I3[I]
+        G3 --> J3[J]
+    end
 ```
 
 ## Usage Example

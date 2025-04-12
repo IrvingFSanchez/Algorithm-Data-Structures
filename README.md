@@ -6,6 +6,33 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
 
 ## 📌 Projects Overview
 
+### 🌳 **Tree ADT Implementation** (`forest_manager.py`)
+
+- **General tree structure** with botanical naming conventions (nodes as trees, children as branches)
+- **Three traversal methods**:
+  - 🌱 Preorder (Root → Children)
+  - 🍂 Postorder (Children → Root)
+  - 🌍 Breadth-First (Level Order)
+- **Clear visual representation** using Mermaid diagrams
+- **Practical applications**:
+  - File system navigation
+  - Organization charts
+  - Decision tree algorithms
+- Includes:
+  - Recursive traversal implementations
+  - Queue-based breadth-first search
+  - Comprehensive test cases
+  
+```mermaid
+flowchart TD
+    A --> B --> E
+    B --> F
+    A --> C
+    A --> D --> G --> H
+    G --> I
+    G --> J
+```
+
 ### 🔗 **Linked List Implementations** (`singlylinked.py`, `doublylinked.py`)
 
 - **Singly Linked List** with O(1) `add_first`/`add_last` operations
@@ -20,8 +47,6 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
   - Interactive test cases
 
 📌 **Concepts applied**: **Pointer Manipulation**, **Time Complexity**, **Bidirectional Traversal**, **Memory Efficiency**
-
----
 
 ## 🚀 Key Features of Linked List Project
 
