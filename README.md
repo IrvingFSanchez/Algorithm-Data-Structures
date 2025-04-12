@@ -33,6 +33,8 @@ flowchart TD
     G --> J
 ```
 
+---
+
 ### 🔗 **Linked List Implementations** (`singlylinked.py`, `doublylinked.py`)
 
 - **Singly Linked List** with O(1) `add_first`/`add_last` operations
