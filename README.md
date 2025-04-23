@@ -6,6 +6,29 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
 
 ## 📌 Projects Overview
 
+### 🧠 Brain Filing System: Custom Hash Table ADT
+
+- A metaphorical hash table designed as a **Brain Filing System**, where:
+  - Keys are *thoughts* 🧠
+  - Values are *memories* 📦
+  - Drawers represent slots in the internal fixed-size list
+- Implements core hash table operations:
+  - `store_memory()` → insert/update (put)
+  - `recall_memory()` → retrieve (get)
+  - `forget_memory()` → delete (remove)
+- Uses **Python's built-in `hash()` function** and modulo operation
+- Collision handling with **separate chaining (list-based)**
+- Features two simulation runs:
+  - **Standard Brain** with 10 drawers
+  - **Tiny Brain** with 2 drawers (forces collisions)
+- Includes structured comment blocks
+
+📌 **Concepts applied**: **Abstract Data Types**, **Hashing**, **Collision Handling**, **Chaining**, **Python Lists**, **Modular Arithmetic**
+
+🧾 **Final Reflection & Write-Up:** [Located in the Hash Table README](./Hash-Table/README.md), including project insight, hash behavior analysis, and chaining validation.
+
+---
+
 ### 🌳 **Tree ADT Implementation** (`forest_manager.py`)
 
 - **General tree structure** with botanical naming conventions (nodes as trees, children as branches)
