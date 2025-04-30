@@ -1,0 +1,36 @@
+# Virtual environment
+benchmark/
+
+# Python cache and build files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dll
+*.pyd
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

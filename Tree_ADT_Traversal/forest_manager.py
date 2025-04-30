@@ -1,192 +1,197 @@
-# Name: Irving F. Sanchez
+# Name: Irving F Sanchez
 # Course: Algorithm and Data Structures SP25-CPSC-34000-002
 # School: Lewis University, Romeoville, IL
-# Purpose: Implementation of a General Tree ADT with multiple traversal methods
+# Purpose: Compare the performance of Bubble Sort and Quick Sort using different real-world datasets of varying sizes.
 
-'''
-NOTES FOR IMPLEMENTATION:
-This tree implementation uses a recursive structure where each node can have multiple children.
-The three traversal methods (preorder, postorder, breadth-first) demonstrate different ways
-to process hierarchical data. This is fundamental for algorithms in compilers, file systems,
-and AI decision trees.
-'''
-
-#==================== START OF TREE NODE CLASS DEFINITION ====================#
-
-class TreeNode:
-    
-    '''This is a single node in the hierarchical tree structure.
-    Each node contains data and maintains references to its parent and children.'''
-    
-    def __init__(self, payload):
-        '''
-        The constructor for tree nodes.
-        @param payload; The data/value is stored in this node
-        '''
-        self.payload = payload # The data stored in the node
-        self.parent_branch = None # This refers to the parent node (None for root node)
-        self.child_branches = [] # This is a list of child nodes (empty for leaf nodes)
-        
-    def graft_child(self, new_sapling):
-        '''
-        This adds a child node to this node (analogous to grafting a branch)
-        @param new_sapling: The node to add as a child
-        '''
-        
-        new_sapling.parent_branch = self
-        self.child_branches.append(new_sapling)
-        
-    def prune_child(self, dead_branch):
-        '''
-        This removes a child node from this node (similar to pruning a tree branch)
-        @param dead_branch: The node to remove from children
-        '''
-        
-        if dead_branch in self.child_branches:
-            self.child_branches.remove(dead_branch)
-            dead_branch.parent_branch = None
-            
-    def is_leaf_node(self):
-        '''
-        This checks if this node is a leaf (end of a branch)
-        @return: True if no children, False otherwise
-        '''
-        return len(self.child_branches) == 0
-
-#===================== END OF TREE NODE CLASS DEFINITION ====================#
+'''Note: I put a ton of comments in my code for personal use. I add notes to help me understand what
+I'm doing and why I'm doing it. I'm not sure if this is a good practice or not, but I'm doing it for now.'''
 
 
-#==================== START OF TREE CLASS DEFINITION ====================#
-
-class TreeGrove:
-    '''
-    The main tree container class that manages the entire hiearchy structure.
-    Furthermore, this provides various traversal methods to process the tree structure.
-    '''
-    
-    def __init__(self, root_arbor):
-        '''
-        The constructor requires a root node to initialize the tree
-        @param root_arbor: The root node of our tree structure
-        '''
-        self.root_arbor = root_arbor # The foundational node of our tree
-        
-    def explore_preorder(self, current_arbor):
-        '''
-        Preorder Traversal: Which processes current node before children
-        @param current_arbot: Which is the node we're currently visiting
-        '''
-        if current_arbor is None:
-            return
-        
-        # Here we process current node (root at first)
-        print(current_arbor.payload, end=(", " if current_arbor != self.root_arbor else ""))
-        
-        # Hereafter recursively process each child node
-        for i, sapling in enumerate(current_arbor.child_branches):
-            if current_arbor == self.root_arbor and i == 0:
-                print(",  ", end= "")
-            self.explore_preorder(sapling)
-            if i < len(current_arbor.child_branches) - 1:
-                print(", ", end= "")
-                
-    def explore_postorder(self, current_arbor):
-        '''
-        Postorder Traversal: Processes children before current node
-        @param current_arbor: The node we're currently visiting
-        '''
-        
-        if current_arbor is None:
-            return
-        
-        # First recursively process each child node
-        for i, sapling in enumerate(current_arbor.child_branches):
-            self.explore_postorder(sapling)
-            print(", ", end= "")
-            
-        # Then we process current node (root last)
-        print(current_arbor.payload, end=("" if current_arbor == self.root_arbor else ""))
-        
-    def explore_breadth_first(self):
-        '''
-        Breadth-first traversal: Processes nodes level by level.
-        Which uses a queue (simulated with list) to track nodes
-        '''
-        
-        if self.root_arbor is None:
-            return
-        
-        # Initializes queue with root node
-        node_queue = [self.root_arbor]
-        first_node = True
-        
-        while node_queue:
-            current_arbor = node_queue.pop(0) 
-            
-            # Format for a cleaner output
-            if first_node:
-                print(current_arbor.payload, end="")
-                first_node = False
-            else:
-                print(f", {current_arbor.payload}", end="")
-                
-            # Adds all children to queue
-            node_queue.extend(current_arbor.child_branches)
-
-#===================== END OF TREE CLASS DEFINITION ====================#
+import pandas as pd
+import random
+import time
+import matplotlib.pyplot as plt
 
 
-#==================== START OF TESTING THE TREE CONSTRUCTION ====================#
-def cultivate_sample_tree():
-    '''
-    Constructs the exact sample tree from the sample on the assignment diagram given to us
-    '''
-    
-    #Here we create all the tree nodes
-    oak_tree = TreeNode("A")
-    birch = TreeNode("B")
-    cedar = TreeNode("C")
-    dogwood = TreeNode("D")
-    elm = TreeNode("E")
-    fig = TreeNode("F")
-    willow_tree = TreeNode("G")
-    hazel = TreeNode("H")
-    ironwood = TreeNode("I")
-    maple = TreeNode("J")
-    
-    #Here we assemble the tree structure
-    oak_tree.graft_child(birch)
-    oak_tree.graft_child(cedar)
-    oak_tree.graft_child(dogwood)
-    
-    birch.graft_child(elm)
-    birch.graft_child(fig)
-    
-    dogwood.graft_child(willow_tree)
-    
-    willow_tree.graft_child(hazel)
-    willow_tree.graft_child(ironwood)
-    willow_tree.graft_child(maple)
-    
-    return TreeGrove(oak_tree) # Returns the complete tree structure
+#==================== START OF DATA LOADING FUNCTIONS ====================#
+def load_pokemon(field):
+    df = pd.read_csv('Pokemon.csv')
+    return df[field].dropna().tolist()
 
-#==================== END OF TESTING THE TREE CONSTRUCTION ====================#
+def load_tokens(field):
+    df = pd.read_csv('tokens.csv')
+    return df[field].dropna().tolist()
 
+def load_games(field):
+    df = pd.read_csv('games.csv')
+    return df[field].dropna().tolist()
+#===================== END OF DATA LOADING FUNCTIONS =====================#
 
-#==================== START OF THE MAIN EXECUTION ====================#
+#==================== START OF DATA MANIPULATION FUNCTIONS ====================#
+def almost_sorted(data, fraction=0.05):
+    data.sort()
+    n_swaps = int(len(data) * fraction)
+    for _ in range(n_swaps):
+        idx1 = random.randint(0, len(data) - 1)
+        idx2 = random.randint(0, len(data) - 1)
+        data[idx1], data[idx2] = data[idx2], data[idx1]
+    return data
+#===================== END OF DATA MANIPULATION FUNCTIONS =====================#
+
+#==================== START OF SORTING ALGORITHMS ====================#
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+#===================== END OF SORTING ALGORITHMS =====================#
+
+#==================== START OF TIMING FUNCTION ====================#
+def time_sort(sort_func, data):
+    start = time.perf_counter()
+    result = sort_func(data.copy())
+    end = time.perf_counter()
+    elapsed_ms = (end - start) * 1000
+    return elapsed_ms
+#===================== END OF TIMING FUNCTION =====================#
+
+#==================== START OF DEFINITIONS DISPLAY ====================#
+def show_definitions():
+    import textwrap
+    wrapper = textwrap.TextWrapper(width=80)
+
+    print("\nDefinitions:")
+
+    print("\nBubble Sort:")
+    bubble_def = ("Bubble Sort is a simple sorting algorithm that repeatedly steps through the "
+                "list, compares adjacent elements, and swaps them if they are in the wrong order. "
+                "This process continues until no swaps are needed.")
+    print(wrapper.fill(bubble_def))
+
+    print("\nQuick Sort:")
+    quick_def = ("Quick Sort is a divide-and-conquer algorithm. It selects a 'pivot' element from the "
+                "array and partitions the other elements into two sub-arrays, according to whether "
+                "they are less than or greater than the pivot. The sub-arrays are then sorted recursively.")
+    print(wrapper.fill(quick_def))
+#===================== END OF DEFINITIONS DISPLAY =====================#
+
+#==================== START OF USER MENU ====================#
+def main_menu():
+    while True:
+        print("\nWelcome! Which dataset would you like to sort?")
+        print("1. Pokemon Data (Small ~1k)")
+        print("2. MTG Token Data (Medium ~5k)")
+        print("3. Video Games Data (Large ~10k)")
+        print("4. Definitions")
+        print("5. Exit")
+
+        choice = input("Enter choice (1-5): ").strip()
+
+        if choice == '1':
+            valid_fields = ['Name', 'Total', 'HP']
+            field = get_valid_field("Sort Pokemon by", valid_fields)
+            pokemon_data = load_pokemon(field)
+            prepare_and_sort(pokemon_data, field)
+        elif choice == '2':
+            valid_fields = ['artist', 'name', 'colorIdentity']
+            field = get_valid_field("Sort MTG Tokens by", valid_fields)
+            token_data = load_tokens(field)
+            prepare_and_sort(token_data, field)
+        elif choice == '3':
+            valid_fields = ['title', 'rating', 'userscore']
+            field = get_valid_field("Sort Video Games by", valid_fields)
+            games_data = load_games(field)
+            prepare_and_sort(games_data, field)
+        elif choice == '4':
+            show_definitions()
+        elif choice == '5':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+#===================== END OF USER MENU =====================#
+
+#==================== START OF FIELD VALIDATION ====================#
+def get_valid_field(prompt, valid_fields):
+    while True:
+        print(f"{prompt}: {', '.join(valid_fields)}")
+        field = input("Enter your choice: ").strip()
+        if field in valid_fields:
+            return field
+        else:
+            print("Invalid choice. Please choose a valid field.")
+#===================== END OF FIELD VALIDATION =====================#
+
+#==================== START OF SORTING AND TIMING PREPARATION ====================#
+def prepare_and_sort(data, label):
+    while True:
+        print("\nDo you want to:")
+        print("1. Randomize the data")
+        print("2. Make it almost sorted")
+        option = input("Enter choice (1-2): ").strip()
+
+        if option == '1':
+            random.shuffle(data)
+            break
+        elif option == '2':
+            data = almost_sorted(data)
+            break
+        else:
+            print("Invalid option. Please enter 1 or 2.")
+
+    print("\nTiming Bubble Sort and Quick Sort...")
+
+    bubble_times = []
+    quick_times = []
+
+    for i in range(5):
+        bubble_times.append(time_sort(bubble_sort, data))
+        quick_times.append(time_sort(quick_sort, data))
+
+    print("\nRun Times (ms):")
+    for i in range(5):
+        print(f"Run {i+1}: Bubble Sort = {bubble_times[i]:.2f}, Quick Sort = {quick_times[i]:.2f}")
+
+    plot_all_runs(bubble_times, quick_times, label, len(data))
+#===================== END OF SORTING AND TIMING PREPARATION =====================#
+
+#==================== START OF GRAPHING FUNCTION ====================#
+def plot_all_runs(bubble_times, quick_times, label, dataset_size):
+    runs = list(range(1, 6))
+    avg_bubble = sum(bubble_times) / len(bubble_times)
+    avg_quick = sum(quick_times) / len(quick_times)
+
+    plt.plot(runs, bubble_times, marker='o', label='Bubble Sort', color='red')
+    plt.plot(runs, quick_times, marker='o', label='Quick Sort', color='green')
+
+    for i, t in enumerate(bubble_times):
+        plt.text(runs[i], t + 2, f"{t:.1f} ms", color='red', ha='center')
+    for i, t in enumerate(quick_times):
+        plt.text(runs[i], t - 2, f"{t:.1f} ms", color='green', ha='center')
+
+    plt.axhline(avg_bubble, color='red', linestyle='--', linewidth=1, label=f'Avg Bubble: {avg_bubble:.2f} ms')
+    plt.axhline(avg_quick, color='green', linestyle='--', linewidth=1, label=f'Avg Quick: {avg_quick:.2f} ms')
+
+    plt.xlabel('Run Number')
+    plt.ylabel('Time (ms)')
+    plt.title(f'Sorting Times over 5 Runs ({label}, Size: {dataset_size})')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+#===================== END OF GRAPHING FUNCTION =====================#
+
 
 if __name__ == "__main__":
-    print (" === Tree Traversal Demo === \n")
-    
-    #Grow the sample tree here
-    arboretum = cultivate_sample_tree()
-    
-    print("Preorder exploration:")
-    arboretum.explore_preorder(arboretum.root_arbor)
-    
-    print("\n\nPostorder exploration:")
-    arboretum.explore_postorder(arboretum.root_arbor)
-    
-    print("\n\nBreadth-first exploration:")
-    arboretum.explore_breadth_first()
-    
+    main_menu()
+
