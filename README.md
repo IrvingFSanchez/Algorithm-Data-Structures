@@ -6,6 +6,25 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
 
 ## 📌 Projects Overview
 
+### ⏱️ **Sorting Algorithm Benchmark** (`sorting-benchmark.py`)
+
+- **Compares performance** of Bubble Sort vs Quick Sort on real-world datasets:
+  - Pokémon stats (~1,000 entries)
+  - MTG tokens (~5,000 entries)
+  - Video games (~10,000 entries)
+- **Interactive menu system** for dataset/field selection
+- **Configurable data preparation**:
+  - 🎲 Fully randomized order
+  - 🔄 Almost-sorted (95% sorted, 5% swapped)
+- **Benchmarking features**:
+  - 5 timed runs per algorithm
+  - Auto-generated performance graphs
+  - Option to save sorted results (e.g., `Pokemon_Name_sorted_data.txt`)
+- **Visualization**:
+  - 🟥 Bubble Sort vs 🟩 Quick Sort timing comparison
+  - Average performance lines
+  - Annotated millisecond values
+
 ### 🧠 Brain Filing System: Custom Hash Table ADT
 
 - A metaphorical hash table designed as a **Brain Filing System**, where:
