@@ -25,6 +25,8 @@ Welcome to the **Algorithm-Data-Structures** repository! This is a collection of
   - Average performance lines
   - Annotated millisecond values
 
+---
+
 ### 🧠 Brain Filing System: Custom Hash Table ADT
 
 - A metaphorical hash table designed as a **Brain Filing System**, where:
